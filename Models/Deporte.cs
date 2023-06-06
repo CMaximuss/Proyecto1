@@ -7,7 +7,7 @@ namespace MVCBasico.Models
 {
     public enum Deporte
     {
-        Natacion,
+        Natacion,  
         Futbol,
         Voley,
         Basquet,
