@@ -15,7 +15,9 @@ namespace MVCBasico.Context
                 EscuelaDatabaseContext(DbContextOptions<EscuelaDatabaseContext> options): base(options)
         {
         }
-        public DbSet<MVCBasico.Models.Estudiante> Estudiantes { get; set; }
+        public DbSet<MVCBasico.Models.Usuario> Usuarios { get; set; }
+        public DbSet<MVCBasico.Models.Comercio> Comercios { get; set; }
+        public DbSet<MVCBasico.Models.Servicio> Servicios { get; set; }
     }
 
 

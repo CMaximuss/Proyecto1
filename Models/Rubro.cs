@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace MVCBasico.Models
 {
-    public enum Deporte
+    public enum Rubro
     {
-        Natacion,  
-        Futbol,
-        Voley,
-        Basquet,
-        Truco,
-        Ajedrez
+        
+        Peluqueria,
+        Barberia,
+        Estetica,
+        Manicura
+
 
     }
 }
