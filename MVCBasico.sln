@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33529.622
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCBasico", "MVCBasico.csproj", "{6B2B7D57-8838-4C56-B74F-C9812A28930E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVCBasico", "MVCBasico.csproj", "{6B2B7D57-8838-4C56-B74F-C9812A28930E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

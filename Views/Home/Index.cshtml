@@ -1,8 +1,37 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Pagina principal";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">El turnero</h1>
+
+    <form name="form1" method="post" action="" target="_blank" onsubmit="ValidarIngreso()" autocomplete="off">
+
+     
+            <div id="subContenedor">
+                <label for="text1"> Usuario  </label>
+                <input type="email" name="correo" required id="correo" title="Ejemplo: email@dominio.com" />
+
+            </div>
+        
+
+        
+            <div id="subContenedor">
+                <label for="text2"> Contraseña  </label>
+                <input type="text" pattern="[A-Za-z]{2,20}" name="contrasenia" id="contrasenia" required title="(Min: 2 - Max: 20) Solo letras Mayusculas y/o Minusculas">
+            </div>
+
+       
+        
+        <div id="subContenedor">
+            <input type="submit" value="Ingresar" id="submit" />
+        </div>
+
+
+
+    </form>
+
+        <script src="~/js/Validacion.js"></script>
+
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
