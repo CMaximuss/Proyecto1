@@ -1,7 +1,7 @@
 ﻿@model MVCBasico.Models.Comercio
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle";
 }
 
 <h1>Detalle</h1>
@@ -10,29 +10,35 @@
     <h4>Comercio</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nombre)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nombre)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Mail)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Mail)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Telefono)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Telefono)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Direccion)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Direccion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FotoComercio)
+        </dt>
+        <dd class="col-sm-10">
+           <img src="@Model.FotoComercio" alt="@Model.Nombre"  height="150"/>
         </dd>
     </dl>
 </div>

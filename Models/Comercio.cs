@@ -30,5 +30,10 @@ namespace MVCBasico.Models
         [MinLength(3, ErrorMessage = ErrorViewModel.CaracteresMinimos)]
         [MaxLength(20, ErrorMessage = ErrorViewModel.CaracteresMaximos)]
         public string Direccion { get; set; }
+
+        [Display(Name ="Foto de Comercio")]
+        public string? FotoComercio { get; set; }
+
+
     }
 }

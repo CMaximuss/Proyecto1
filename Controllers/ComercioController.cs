@@ -14,6 +14,8 @@ namespace MVCBasico.Controllers
     {
         private readonly EscuelaDatabaseContext _context;
 
+        private const string _fotoComercioDefault= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLQbPGPISqJ4cxwwcVwi9Gbal41u692aVNag&usqp=CAU";
+
         public ComercioController(EscuelaDatabaseContext context)
         {
             _context = context;
@@ -54,10 +56,21 @@ namespace MVCBasico.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Mail,Telefono,Direccion")] Comercio comercio)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Mail,Telefono,Direccion,FotoComercio")] Comercio comercio)
         {
             if (ModelState.IsValid)
-            {
+            { 
+                if(comercio.FotoComercio == null)
+                {
+                    comercio.FotoComercio = _fotoComercioDefault;
+                }
+
+                if(await VerificarComercioFotoDuplicado(comercio.FotoComercio))
+                {
+                return NotFound();
+                 }
+
+            
                 _context.Add(comercio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -149,5 +162,18 @@ namespace MVCBasico.Controllers
         {
             return _context.Comercios.Any(e => e.Id == id);
         }
+
+        private async Task<bool> VerificarComercioFotoDuplicado(string foto)
+        {
+            var comercio = await _context.Comercios.Where(c => c.FotoComercio == foto).FirstOrDefaultAsync();
+
+            if(comercio == null || comercio.FotoComercio == _fotoComercioDefault)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
     }
 }
