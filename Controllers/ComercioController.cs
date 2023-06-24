@@ -99,7 +99,7 @@ namespace MVCBasico.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Mail,Telefono,Direccion")] Comercio comercio)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Mail,Telefono,Direccion,FotoComercio")] Comercio comercio)
         {
             if (id != comercio.Id)
             {

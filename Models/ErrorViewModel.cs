@@ -9,7 +9,7 @@ namespace MVCBasico.Models
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
 
-        public const string CampoRequerido = "{0} el campo es obligatorio.";
+        public const string CampoRequerido = "El campo {0} es obligatorio.";
         public const string CaracteresMinimos = "{0} debe superar los {1} caracteres.";
         public const string CaracteresMaximos = "{0} no debe superar los {1} caracteres.";
         public const string CorreoInvalido = "El {0} es invalido.";
