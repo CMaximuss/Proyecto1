@@ -31,6 +31,12 @@ namespace MVCBasico.Models
         [MaxLength(20, ErrorMessage = ErrorViewModel.CaracteresMaximos)]
         public string Direccion { get; set; }
 
+        [Display(Name ="Lista de servicios")]
+        public List<Servicio>? Servicios { get; set; }
+
+        [Display(Name ="Reservas")]
+        public List<Reserva>? ReservasComercio { get; set; }
+
         [Display(Name ="Foto de Comercio")]
         public string? FotoComercio { get; set; }
 

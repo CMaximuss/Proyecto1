@@ -8,24 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using MVCBasico.Context;
 using MVCBasico.Models;
 
-namespace MVCBasico.Controllers
+namespace MVCBasico
 {
-    public class UsuarioController : Controller
+    public class ReservasController : Controller
     {
         private readonly EscuelaDatabaseContext _context;
 
-        public UsuarioController(EscuelaDatabaseContext context)
+        public ReservasController(EscuelaDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: Usuario
+        // GET: Reservas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Usuarios.ToListAsync());
+            var escuelaDatabaseContext = _context.Reserva.Include(r => r.Comercio).Include(r => r.Usuario);
+            return View(await escuelaDatabaseContext.ToListAsync());
         }
 
-        // GET: Usuario/Details/5
+        // GET: Reservas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,44 +34,45 @@ namespace MVCBasico.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.Usuarios
+            var reserva = await _context.Reserva
+                .Include(r => r.Comercio)
+                .Include(r => r.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (usuario == null)
+            if (reserva == null)
             {
                 return NotFound();
             }
 
-            return View(usuario);
+            return View(reserva);
         }
 
-        // GET: Usuario/Create
+        // GET: Reservas/Create
         public IActionResult Create()
         {
+            ViewData["ComercioId"] = new SelectList(_context.Comercios, "Id", "Direccion");
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Apellido");
             return View();
         }
 
-        // POST: Usuario/Create
+        // POST: Reservas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Dni,Mail")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("Id,Fecha,ComercioId,UsuarioId")] Reserva reserva)
         {
             if (ModelState.IsValid)
             {
-                if (await UsuarioDuplicado(usuario.Mail))
-                {
-                    return NotFound();
-                }
-
-                _context.Add(usuario);
+                _context.Add(reserva);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(usuario);
+            ViewData["ComercioId"] = new SelectList(_context.Comercios, "Id", "Direccion", reserva.ComercioId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Apellido", reserva.UsuarioId);
+            return View(reserva);
         }
 
-        // GET: Usuario/Edit/5
+        // GET: Reservas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,22 +80,24 @@ namespace MVCBasico.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null)
+            var reserva = await _context.Reserva.FindAsync(id);
+            if (reserva == null)
             {
                 return NotFound();
             }
-            return View(usuario);
+            ViewData["ComercioId"] = new SelectList(_context.Comercios, "Id", "Direccion", reserva.ComercioId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Apellido", reserva.UsuarioId);
+            return View(reserva);
         }
 
-        // POST: Usuario/Edit/5
+        // POST: Reservas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Dni,Mail")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Fecha,ComercioId,UsuarioId")] Reserva reserva)
         {
-            if (id != usuario.Id)
+            if (id != reserva.Id)
             {
                 return NotFound();
             }
@@ -102,12 +106,12 @@ namespace MVCBasico.Controllers
             {
                 try
                 {
-                    _context.Update(usuario);
+                    _context.Update(reserva);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UsuarioExists(usuario.Id))
+                    if (!ReservaExists(reserva.Id))
                     {
                         return NotFound();
                     }
@@ -118,10 +122,12 @@ namespace MVCBasico.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(usuario);
+            ViewData["ComercioId"] = new SelectList(_context.Comercios, "Id", "Direccion", reserva.ComercioId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Apellido", reserva.UsuarioId);
+            return View(reserva);
         }
 
-        // GET: Usuario/Delete/5
+        // GET: Reservas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,46 +135,32 @@ namespace MVCBasico.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.Usuarios
+            var reserva = await _context.Reserva
+                .Include(r => r.Comercio)
+                .Include(r => r.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (usuario == null)
+            if (reserva == null)
             {
                 return NotFound();
             }
 
-            return View(usuario);
+            return View(reserva);
         }
 
-        // POST: Usuario/Delete/5
+        // POST: Reservas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var usuario = await _context.Usuarios.FindAsync(id);
-            _context.Usuarios.Remove(usuario);
+            var reserva = await _context.Reserva.FindAsync(id);
+            _context.Reserva.Remove(reserva);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UsuarioExists(int id)
+        private bool ReservaExists(int id)
         {
-            return _context.Usuarios.Any(e => e.Id == id);
+            return _context.Reserva.Any(e => e.Id == id);
         }
-
-
-         private async Task<bool> UsuarioDuplicado(string correo)
-        {
-            var usuario =await _context.Usuarios.Where(u => u.Mail == correo).FirstOrDefaultAsync();
-
-            if(usuario == null)
-            {
-                return false;
-            }
-            return true;
-        }
-
-
     }
-
-  
 }

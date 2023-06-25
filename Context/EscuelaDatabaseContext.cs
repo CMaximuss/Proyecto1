@@ -18,6 +18,7 @@ namespace MVCBasico.Context
         public DbSet<MVCBasico.Models.Usuario> Usuarios { get; set; }
         public DbSet<MVCBasico.Models.Comercio> Comercios { get; set; }
         public DbSet<MVCBasico.Models.Servicio> Servicios { get; set; }
+        public DbSet<MVCBasico.Models.Reserva> Reserva { get; set; }
     }
 
 

@@ -32,5 +32,8 @@ namespace MVCBasico.Models
         [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
         [EmailAddress(ErrorMessage = ErrorViewModel.CorreoInvalido)]
         public string Mail { get; set; }
+
+        [Display(Name ="Reservas")]
+        public List<Reserva>? ReservasUsuario { get; set; }
     }
 }
