@@ -14,6 +14,7 @@ namespace MVCBasico.Models
         public int Id { get; set; }
       
         [Display(Name ="Fecha de Reserva")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Fecha { get; set; }
 
         public int ComercioId { get; set; }

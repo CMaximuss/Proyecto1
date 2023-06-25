@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MVCBasico.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MVCBasico.Context
 {
-    public class EscuelaDatabaseContext : DbContext
+    public class EscuelaDatabaseContext : IdentityDbContext
+                                         //sin el identity estaba:  DbContext
 
     {
 
