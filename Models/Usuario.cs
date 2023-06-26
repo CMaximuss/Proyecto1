@@ -34,6 +34,6 @@ namespace MVCBasico.Models
         public string Mail { get; set; }
 
         [Display(Name ="Reservas")]
-        public List<Reserva>? ReservasUsuario { get; set; }
+        public List<Reserva> ReservasUsuario { get; set; }
     }
 }

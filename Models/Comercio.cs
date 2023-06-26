@@ -23,7 +23,7 @@ namespace MVCBasico.Models
 
         [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
         [MinLength(8, ErrorMessage = ErrorViewModel.CaracteresMinimos)]
-        [MaxLength(8, ErrorMessage = ErrorViewModel.CaracteresMaximos)]
+        [MaxLength(10, ErrorMessage = ErrorViewModel.CaracteresMaximos)]
         public string Telefono { get; set; }
 
         [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
@@ -32,13 +32,13 @@ namespace MVCBasico.Models
         public string Direccion { get; set; }
 
         [Display(Name ="Lista de servicios")]
-        public List<Servicio>? Servicios { get; set; }
+        public List<Servicio> Servicios { get; set; }
 
         [Display(Name ="Reservas")]
-        public List<Reserva>? ReservasComercio { get; set; }
+        public List<Reserva> ReservasComercio { get; set; }
 
         [Display(Name ="Foto de Comercio")]
-        public string? FotoComercio { get; set; }
+        public string FotoComercio { get; set; }
 
 
     }

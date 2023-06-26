@@ -46,9 +46,11 @@ function ValidarIngreso() {
 
                 alert("Ingreso Valido");
 
-                }
+            }
 
-        
-   
+
+
+        }
+    }
 }
 window.addEventListener("load", iniciar, false);

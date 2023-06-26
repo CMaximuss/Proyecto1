@@ -19,12 +19,12 @@ namespace MVCBasico.Models
 
         public int ComercioId { get; set; }
 
-        public Comercio? Comercio { get; set; }
+        public Comercio Comercio { get; set; }
 
 
         public int UsuarioId { get; set; }
 
-        public Usuario? Usuario { get; set; }
+        public Usuario Usuario { get; set; }
 
        
 

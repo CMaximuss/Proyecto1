@@ -4,14 +4,16 @@ using MVCBasico.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MVCBasico.Migrations
 {
     [DbContext(typeof(EscuelaDatabaseContext))]
-    partial class EscuelaDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230626033125_MVCBasico.Context.EscuelaDatabaseContext")]
+    partial class MVCBasicoContextEscuelaDatabaseContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
