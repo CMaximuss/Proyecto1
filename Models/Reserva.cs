@@ -17,11 +17,12 @@ namespace MVCBasico.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Fecha { get; set; }
 
+        [Display(Name = "Comercio")]
         public int ComercioId { get; set; }
 
         public Comercio Comercio { get; set; }
 
-
+        [Display(Name = "Cliente")]
         public int UsuarioId { get; set; }
 
         public Usuario Usuario { get; set; }
