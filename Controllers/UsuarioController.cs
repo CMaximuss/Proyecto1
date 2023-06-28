@@ -167,7 +167,8 @@ namespace MVCBasico.Controllers
             {
                 if(usuario.Contrasenia == contrasenia)
                 {
-                    return RedirectToAction("Index", "Home");
+                   
+                    return await MisReservas(usuario); ;
                 }
                 else
                 {
@@ -192,6 +193,40 @@ namespace MVCBasico.Controllers
         public IActionResult InicioSesion()
         {
             return View();
+        }
+
+
+        /*  public async Task<IActionResult> MisReservas(Usuario usuario)
+          {
+              var listaUsuarios = await _context.Usuarios.ToListAsync();
+              var listaMisReservas = usuario.ReservasUsuario;
+
+              foreach (Usuario var in listaUsuarios)
+              {
+                  if(var == usuario)
+                  {
+                      listaMisReservas.Add(var.)
+                  }
+
+              }
+
+
+              return  
+          }*/
+
+        public async Task<IActionResult> MisReservas(Usuario usuario)
+        {
+            var listaDeReservas =await _context.Reserva.ToListAsync();
+            var misReservas = usuario.ReservasUsuario;
+
+            foreach (Reserva var in listaDeReservas)
+            {
+                if(var.UsuarioId == usuario.Id)
+                {
+                    misReservas.Add(var);
+                }
+            }
+            return View(misReservas);
         }
 
     }
