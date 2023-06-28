@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-//var builder = WebApplication.Createbuilder(args);
+//var builder = webApplication.Createbuilder(args);
 
 namespace MVCBasico
 {
@@ -19,7 +19,10 @@ namespace MVCBasico
             
         }
 
+
         
+
+
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)

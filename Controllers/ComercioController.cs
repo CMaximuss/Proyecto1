@@ -56,20 +56,26 @@ namespace MVCBasico.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Mail,Telefono,Direccion,FotoComercio")] Comercio comercio)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Mail,Contrasenia,Telefono,Direccion,FotoComercio")] Comercio comercio)
         {
             if (ModelState.IsValid)
-            { 
-                if(comercio.FotoComercio == null)
+            {
+                if (await ComercioDuplicado("Mail"))
                 {
-                    comercio.FotoComercio = _fotoComercioDefault;
+                    return RedirectToAction("MensajeError", "Home");
                 }
-
-                if(await VerificarComercioFotoDuplicado(comercio.FotoComercio))
+                else
                 {
-                return NotFound();
-                 }
+                    if (comercio.FotoComercio == null)
+                    {
+                        comercio.FotoComercio = _fotoComercioDefault;
+                    }
 
+                    if (await VerificarComercioFotoDuplicado(comercio.FotoComercio))
+                    {
+                        return RedirectToAction("MensajeError", "Home");
+                    }
+                }
             
                 _context.Add(comercio);
                 await _context.SaveChangesAsync();
@@ -99,7 +105,7 @@ namespace MVCBasico.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Mail,Telefono,Direccion,FotoComercio")] Comercio comercio)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Mail,Contrasenia,Telefono,Direccion,FotoComercio")] Comercio comercio)
         {
             if (id != comercio.Id)
             {
@@ -174,6 +180,18 @@ namespace MVCBasico.Controllers
             return true;
         }
 
+        private async Task<bool> ComercioDuplicado(string correo)
+        {
+            var Comercio = await _context.Comercios.Where(c => c.Mail == correo).FirstOrDefaultAsync();
+
+            if (Comercio == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        //Falta agregar el metodo de validacion al iniciar sesion
 
     }
 }

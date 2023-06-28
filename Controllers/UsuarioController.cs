@@ -30,7 +30,7 @@ namespace MVCBasico.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("MensajeError", "Home");
             }
 
             var usuario = await _context.Usuarios
@@ -54,13 +54,13 @@ namespace MVCBasico.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Dni,Mail")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Dni,Mail,Contrasenia")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
                 if (await UsuarioDuplicado(usuario.Mail))
                 {
-                    return NotFound();
+                    return RedirectToAction("MensajeError", "Home");
                 }
 
                 _context.Add(usuario);
@@ -91,7 +91,7 @@ namespace MVCBasico.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Dni,Mail")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Dni,Mail,Contrasenia")] Usuario usuario)
         {
             if (id != usuario.Id)
             {
@@ -155,6 +155,28 @@ namespace MVCBasico.Controllers
             return _context.Usuarios.Any(e => e.Id == id);
         }
 
+        public async Task<IActionResult> IniciarSesion(string correo, string contrasenia)
+        {
+            var usuario = await _context.Usuarios.Where(u => u.Mail == correo).FirstOrDefaultAsync();
+
+            if(usuario == null)
+            {
+                return RedirectToAction("MensajeError", "Home");
+            }
+            else
+            {
+                if(usuario.Contrasenia == contrasenia)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("MensajeError", "Home");
+                }
+            }
+        }
+
+
 
          private async Task<bool> UsuarioDuplicado(string correo)
         {
@@ -167,6 +189,10 @@ namespace MVCBasico.Controllers
             return true;
         }
 
+        public IActionResult InicioSesion()
+        {
+            return View();
+        }
 
     }
 

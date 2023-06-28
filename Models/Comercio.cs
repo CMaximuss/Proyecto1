@@ -31,6 +31,12 @@ namespace MVCBasico.Models
         [MaxLength(20, ErrorMessage = ErrorViewModel.CaracteresMaximos)]
         public string Direccion { get; set; }
 
+        [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
+        [Display(Name ="Contraseña")]
+        [MinLength(5, ErrorMessage = ErrorViewModel.CaracteresMinimos)]
+        [MaxLength(20, ErrorMessage = ErrorViewModel.CaracteresMaximos)]
+        public string Contrasenia { get; set; }
+
         [Display(Name ="Lista de servicios")]
         public List<Servicio> Servicios { get; set; }
 

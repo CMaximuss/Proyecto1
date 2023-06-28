@@ -33,6 +33,12 @@ namespace MVCBasico.Models
         [EmailAddress(ErrorMessage = ErrorViewModel.CorreoInvalido)]
         public string Mail { get; set; }
 
+        [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
+        [Display(Name ="Contraseña")]
+        [MinLength(5, ErrorMessage = ErrorViewModel.CaracteresMinimos)]
+        [MaxLength(20, ErrorMessage = ErrorViewModel.CaracteresMaximos)]
+        public String Contrasenia { get; set; }
+
         [Display(Name ="Reservas")]
         public List<Reserva> ReservasUsuario { get; set; }
     }

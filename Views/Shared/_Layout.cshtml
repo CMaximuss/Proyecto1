@@ -12,8 +12,8 @@
 <body>
     <header>
 
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3 text-white">
-            <div class="container">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3 text-white ">
+            <div class="container text-center">
                 <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">TurnoYa</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Bienvenido">Bienvenido</a>
                         </li>
-                       
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Usuario" asp-action="InicioSesion">Iniciar Sesion</a>
+                        </li>
                     </ul>
                     <parial name="_LoginPartial"/>
                 </div>
@@ -44,8 +46,8 @@
 
     <footer class="border-top footer text-muted bg-dark text-center">
         <div class="container text-white">
-            &copy; 2023 - TurnoYa - &nbsp
-
+                 &copy; 2023 - TurnoYa - &nbsp
+   
             <a href="https://www.facebook.com">
                 &nbsp
                 <svg xmlns="http://www.w3.org/2000/svg" color="white" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
