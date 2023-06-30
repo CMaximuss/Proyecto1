@@ -155,20 +155,27 @@ namespace MVCBasico.Controllers
             return _context.Usuarios.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> IniciarSesion(string correo, string contrasenia)
-        {
-            var usuario = await _context.Usuarios.Where(u => u.Mail == correo).FirstOrDefaultAsync();
 
-            if (usuario == null)
+
+
+       
+
+
+        [HttpPost]
+        public async Task<IActionResult> IniciarSesion([Bind("Id,Mail,Contrasenia")] Usuario usuario)
+        {
+            var usuarioAux = await _context.Usuarios.Where(u => u.Mail == usuario.Mail).FirstOrDefaultAsync();
+
+            if (usuarioAux == null)
             {
                 return RedirectToAction("MensajeError", "Home");
             }
             else
             {
-                if (usuario.Contrasenia == contrasenia)
+                if (usuarioAux.Contrasenia == usuario.Contrasenia)
                 {
 
-                    return View("Index");
+                    return RedirectToAction(nameof(ListaReserva));;
                 }
                 else
                 {
