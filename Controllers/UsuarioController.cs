@@ -65,9 +65,9 @@ namespace MVCBasico.Controllers
 
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListaReserva));
             }
-            return View(usuario);
+            return View(ListaReserva(usuario.Id));
         }
 
         // GET: Usuario/Edit/5
@@ -159,16 +159,16 @@ namespace MVCBasico.Controllers
         {
             var usuario = await _context.Usuarios.Where(u => u.Mail == correo).FirstOrDefaultAsync();
 
-            if(usuario == null)
+            if (usuario == null)
             {
                 return RedirectToAction("MensajeError", "Home");
             }
             else
             {
-                if(usuario.Contrasenia == contrasenia)
+                if (usuario.Contrasenia == contrasenia)
                 {
-                   
-                    return await MisReservas(usuario); ;
+
+                    return View("Index");
                 }
                 else
                 {
@@ -179,11 +179,11 @@ namespace MVCBasico.Controllers
 
 
 
-         private async Task<bool> UsuarioDuplicado(string correo)
+        private async Task<bool> UsuarioDuplicado(string correo)
         {
-            var usuario =await _context.Usuarios.Where(u => u.Mail == correo).FirstOrDefaultAsync();
+            var usuario = await _context.Usuarios.Where(u => u.Mail == correo).FirstOrDefaultAsync();
 
-            if(usuario == null)
+            if (usuario == null)
             {
                 return false;
             }
@@ -214,22 +214,40 @@ namespace MVCBasico.Controllers
               return  
           }*/
 
-        public async Task<IActionResult> MisReservas(Usuario usuario)
-        {
-            var listaDeReservas =await _context.Reserva.ToListAsync();
-            var misReservas = usuario.ReservasUsuario;
+        /* public async Task<IActionResult> MisReservas(Usuario usuario)
+         {
+             var listaDeReservas = await _context.Reserva.ToListAsync();
+             var misReservas = usuario.ReservasUsuario;
 
-            foreach (Reserva var in listaDeReservas)
-            {
-                if(var.UsuarioId == usuario.Id)
-                {
-                    misReservas.Add(var);
-                }
-            }
-            return View(misReservas);
+             foreach (var item in listaDeReservas)
+             {
+                 if (item.UsuarioId == usuario.Id)
+                 {
+                     misReservas.Add(item);
+                 }
+             }
+             return View(misReservas);
+         }
+        */
+        /*
+         [HttpGet("Usuario/ListaReserva")]
+         public async Task<IActionResult> ListaReserva()
+         {
+             var listaDeReservas = await _context.Reserva.ToListAsync();
+
+             return View(listaDeReservas);
+         }
+        */
+
+        public ActionResult ListaReserva(int usuarioId)
+        {
+            // Obtener las reservas del usuario desde la base de datos
+            var reservas = _context.Reserva.Where(r => r.UsuarioId == usuarioId).ToList();
+
+            // Realizar cualquier otra lógica o procesamiento necesario
+
+            return View(reservas);
         }
 
     }
-
-  
 }

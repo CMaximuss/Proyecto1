@@ -60,7 +60,7 @@ namespace MVCBasico.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await ComercioDuplicado("Mail"))
+                if (await ComercioDuplicado(comercio.Mail))
                 {
                     return RedirectToAction("MensajeError", "Home");
                 }

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<MVCBasico.Models.Reserva>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h2>Reservas por Usuario</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID de Reserva</th>
+            <!-- Otros encabezados de columna -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reserva in Model)
+        {
+            <tr>
+                <td>@reserva.Id</td>
+                <!-- Otros campos de reserva -->
+            </tr>
+        }
+    </tbody>
+</table>
