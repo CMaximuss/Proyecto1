@@ -63,22 +63,22 @@ namespace MVCBasico
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Fecha,ComercioId,UsuarioId")] Reserva reserva)
         {
+            int id = reserva.UsuarioId;
             
             if (ModelState.IsValid)
             {
 
                 _context.Add(reserva);
                 await _context.SaveChangesAsync();
-                return View(ReservasPorId(reserva.UsuarioId));
-                //  return RedirectToAction(nameof(Index)); return anterior
+
+                return RedirectToAction("ReservasPorId", "Reservas", new { id = id});
+                //return RedirectToAction(nameof(Index)); return anterior
             }
 
             ViewData["Comercio"] = new SelectList(_context.Comercios,"Id","Nombre", reserva.Comercio.Nombre);
             ViewData["Usuario"] = new SelectList(_context.Usuarios,"Id","Mail", reserva.Usuario.Mail);
-            
-            return View(ReservasPorId(reserva.Id));
-            // return View(reserva) return anterior
-        }
+
+            return View(reserva);        }
 
         // GET: Reservas/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -181,7 +181,11 @@ namespace MVCBasico
 
             return View(await listaReservas.ToListAsync());
         }
-    
+
+        
+
+       
+
 
     }
 }
