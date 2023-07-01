@@ -65,7 +65,7 @@ namespace MVCBasico.Controllers
                     return RedirectToAction("MensajeError", "Home");
                 }
                 else
-                {
+                {        
                     if (comercio.FotoComercio == null)
                     {
                         comercio.FotoComercio = _fotoComercioDefault;
@@ -192,6 +192,15 @@ namespace MVCBasico.Controllers
         }
 
         //Falta agregar el metodo de validacion al iniciar sesion
+
+
+        public async Task<IActionResult> ListaComercio()
+        {
+           
+            return View(await _context.Comercios.ToListAsync());
+        }
+
+        
 
     }
 }

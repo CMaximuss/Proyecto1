@@ -158,13 +158,14 @@ namespace MVCBasico.Controllers
 
 
 
-       
 
 
+        
         [HttpPost]
         public async Task<IActionResult> IniciarSesion([Bind("Id,Mail,Contrasenia")] Usuario usuario)
         {
             var usuarioAux = await _context.Usuarios.Where(u => u.Mail == usuario.Mail).FirstOrDefaultAsync();
+           
 
             if (usuarioAux == null)
             {
@@ -174,8 +175,8 @@ namespace MVCBasico.Controllers
             {
                 if (usuarioAux.Contrasenia == usuario.Contrasenia)
                 {
-
-                    return RedirectToAction(nameof(ListaReserva));;
+                          
+                     return RedirectToAction("ReservasPorId", "Reservas", new { id = usuarioAux.Id });
                 }
                 else
                 {
@@ -202,6 +203,12 @@ namespace MVCBasico.Controllers
             return View();
         }
 
+        /*
+        public IActionResult ReservaPoId()
+        {
+            return View();
+        }
+        */
 
         /*  public async Task<IActionResult> MisReservas(Usuario usuario)
           {

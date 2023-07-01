@@ -39,6 +39,7 @@ namespace MVCBasico.Models
         [MaxLength(20, ErrorMessage = ErrorViewModel.CaracteresMaximos)]
         public String Contrasenia { get; set; }
 
+
         [Display(Name ="Reservas")]
         public List<Reserva> ReservasUsuario { get; set; }
     }

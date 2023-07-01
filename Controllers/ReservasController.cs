@@ -14,6 +14,8 @@ namespace MVCBasico
     {
         private readonly EscuelaDatabaseContext _context;
 
+        Usuario usuario;
+
         public ReservasController(EscuelaDatabaseContext context)
         {
             _context = context;
@@ -49,8 +51,8 @@ namespace MVCBasico
         // GET: Reservas/Create
         public IActionResult Create()
         {
-            ViewData["ComercioId"] = new SelectList(_context.Comercios, "Id", "Direccion");
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Apellido");
+            ViewData["ComercioId"] = new SelectList(_context.Comercios, "Id", "Nombre");
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Mail");
             return View();
         }
 
@@ -61,15 +63,21 @@ namespace MVCBasico
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Fecha,ComercioId,UsuarioId")] Reserva reserva)
         {
+            
             if (ModelState.IsValid)
             {
+
                 _context.Add(reserva);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(ReservasPorId(reserva.UsuarioId));
+                //  return RedirectToAction(nameof(Index)); return anterior
             }
-            ViewData["ComercioId"] = new SelectList(_context.Comercios, "Id", "Direccion", reserva.ComercioId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Apellido", reserva.UsuarioId);
-            return View(reserva);
+
+            ViewData["Comercio"] = new SelectList(_context.Comercios,"Id","Nombre", reserva.Comercio.Nombre);
+            ViewData["Usuario"] = new SelectList(_context.Usuarios,"Id","Mail", reserva.Usuario.Mail);
+            
+            return View(ReservasPorId(reserva.Id));
+            // return View(reserva) return anterior
         }
 
         // GET: Reservas/Edit/5
@@ -85,8 +93,8 @@ namespace MVCBasico
             {
                 return NotFound();
             }
-            ViewData["ComercioId"] = new SelectList(_context.Comercios, "Id", "Direccion", reserva.ComercioId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Apellido", reserva.UsuarioId);
+            ViewData["ComercioId"] = new SelectList(_context.Comercios, "Id", "Nombre", reserva.ComercioId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Mail", reserva.UsuarioId);
             return View(reserva);
         }
 
@@ -122,8 +130,8 @@ namespace MVCBasico
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ComercioId"] = new SelectList(_context.Comercios, "Id", "Direccion", reserva.ComercioId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Apellido", reserva.UsuarioId);
+            ViewData["ComercioId"] = new SelectList(_context.Comercios, "Id", "Nombre", reserva.ComercioId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Mail", reserva.UsuarioId);
             return View(reserva);
         }
 
@@ -162,5 +170,18 @@ namespace MVCBasico
         {
             return _context.Reserva.Any(e => e.Id == id);
         }
+    
+
+        //funciona
+        public async Task<IActionResult> ReservasPorId(int id)
+        {
+            ViewBag.Id = id;
+            
+            var listaReservas = _context.Reserva.Include(r => r.Comercio).Include( r => r.Usuario).Where(r => r.UsuarioId == id);
+
+            return View(await listaReservas.ToListAsync());
+        }
+    
+
     }
 }
