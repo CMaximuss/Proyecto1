@@ -4,20 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Comercios</h1>
+<h1>Comercios aheridos</h1>
 
-<p>
-    <a asp-area=""  asp-controller="Reservas" asp-action="Create">Reservar</a>
-    <a asp-area="" asp-controller="Reservas" asp-action="ReservasPorId">Mis Reservas</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mail)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Telefono)
@@ -38,9 +31,6 @@
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Mail)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Telefono)
             </td>
             <td>
@@ -55,3 +45,12 @@
 }
     </tbody>
 </table>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

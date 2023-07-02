@@ -14,7 +14,7 @@ namespace MVCBasico
     {
         private readonly EscuelaDatabaseContext _context;
 
-        Usuario usuario;
+        
 
         public ReservasController(EscuelaDatabaseContext context)
         {
@@ -31,6 +31,8 @@ namespace MVCBasico
         // GET: Reservas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            
+
             if (id == null)
             {
                 return NotFound();
@@ -45,7 +47,7 @@ namespace MVCBasico
                 return NotFound();
             }
 
-            return View(reserva);
+            return View(reserva); 
         }
 
         // GET: Reservas/Create
@@ -109,6 +111,7 @@ namespace MVCBasico
             {
                 return NotFound();
             }
+            int idUsuario = reserva.UsuarioId;
 
             if (ModelState.IsValid)
             {
@@ -128,7 +131,7 @@ namespace MVCBasico
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("ReservasPorId", "Reservas", new { id = idUsuario });
             }
             ViewData["ComercioId"] = new SelectList(_context.Comercios, "Id", "Nombre", reserva.ComercioId);
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Mail", reserva.UsuarioId);
@@ -138,6 +141,7 @@ namespace MVCBasico
         // GET: Reservas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+         
             if (id == null)
             {
                 return NotFound();
@@ -152,6 +156,7 @@ namespace MVCBasico
                 return NotFound();
             }
 
+            
             return View(reserva);
         }
 
@@ -160,10 +165,15 @@ namespace MVCBasico
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            Reserva reservaAux = await _context.Reserva.Where(r => r.Id == id).FirstOrDefaultAsync();
+            int idUsuario = reservaAux.UsuarioId;
+
             var reserva = await _context.Reserva.FindAsync(id);
             _context.Reserva.Remove(reserva);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return RedirectToAction("ReservasPorId", "Reservas", new { id = idUsuario });
+            //return RedirectToAction(nameof(Index));
         }
 
         private bool ReservaExists(int id)
@@ -182,9 +192,16 @@ namespace MVCBasico
             return View(await listaReservas.ToListAsync());
         }
 
-        
+        public async Task<IActionResult> ReservasPorComercio(int id)
+        {
+            ViewBag.Id = id;
 
-       
+            var listaReservas = _context.Reserva.Include(r => r.Comercio).Include(r => r.Usuario).Where(r => r.ComercioId == id);
+
+            return View(await listaReservas.ToListAsync());
+        }
+
+
 
 
     }

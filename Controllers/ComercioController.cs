@@ -79,7 +79,9 @@ namespace MVCBasico.Controllers
             
                 _context.Add(comercio);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var comercioAux = await _context.Comercios.Where(c => c.Mail == comercio.Mail).FirstOrDefaultAsync();
+                return RedirectToAction("ReservasPorComercio", "Reservas", new { id = comercioAux.Id });
+                // return RedirectToAction(nameof(Index));
             }
             return View(comercio);
         }
@@ -200,7 +202,37 @@ namespace MVCBasico.Controllers
             return View(await _context.Comercios.ToListAsync());
         }
 
-        
+       
+        public IActionResult InicioSesion()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> IniciarSesion([Bind("Id,Mail,Contrasenia")] Comercio comercio)
+        {
+            var comercioAux = await _context.Comercios.Where(u => u.Mail == comercio.Mail).FirstOrDefaultAsync();
+
+
+            if (comercioAux == null)
+            {
+                return RedirectToAction("MensajeError", "Home");
+            }
+            else
+            {
+                if (comercioAux.Contrasenia == comercio.Contrasenia)
+                {
+
+                    return RedirectToAction("ReservasPorComercio", "Reservas", new { id = comercioAux.Id });
+                }
+                else
+                {
+                    return RedirectToAction("MensajeError", "Home");
+                }
+            }
+        }
+
 
     }
 }

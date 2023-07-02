@@ -55,7 +55,8 @@ namespace MVCBasico.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Dni,Mail,Contrasenia")] Usuario usuario)
-        {
+        { 
+
             if (ModelState.IsValid)
             {
                 if (await UsuarioDuplicado(usuario.Mail))
@@ -65,9 +66,10 @@ namespace MVCBasico.Controllers
 
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(ListaReserva));
+                var usuarioAux = await _context.Usuarios.Where(u => u.Mail == usuario.Mail).FirstOrDefaultAsync();
+                return RedirectToAction("ReservasPorId", "Reservas", new { id = usuarioAux.Id });
             }
-            return View(ListaReserva(usuario.Id));
+            return RedirectToAction("Index", "Reservas");
         }
 
         // GET: Usuario/Edit/5

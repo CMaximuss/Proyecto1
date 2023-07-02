@@ -27,7 +27,7 @@ namespace MVCBasico.Models
         [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
         [MinLength(8, ErrorMessage = ErrorViewModel.CaracteresMinimos)]
         [MaxLength(8, ErrorMessage = ErrorViewModel.CaracteresMaximos)]
-        public String Dni { get; set; }
+        public string Dni { get; set; }
 
         [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
         [EmailAddress(ErrorMessage = ErrorViewModel.CorreoInvalido)]
@@ -37,7 +37,7 @@ namespace MVCBasico.Models
         [Display(Name ="Contraseña")]
         [MinLength(5, ErrorMessage = ErrorViewModel.CaracteresMinimos)]
         [MaxLength(20, ErrorMessage = ErrorViewModel.CaracteresMaximos)]
-        public String Contrasenia { get; set; }
+        public string Contrasenia { get; set; }
 
 
         [Display(Name ="Reservas")]

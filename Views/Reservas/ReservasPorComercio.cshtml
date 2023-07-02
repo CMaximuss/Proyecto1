@@ -7,10 +7,6 @@
 <h1>Mis Reservas</h1>
 
 <p>
-    <a asp-action="Create">
-        <input type="submit" value="Reservar" class="btn btn-primary" />
-    </a>
-    &nbsp
     <a asp-area="" asp-controller="Home" asp-action="Index">
         <input type="submit" value="Cerrar Sesion" class="btn btn-danger" />
     </a>
@@ -49,11 +45,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Usuario.Apellido)
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalle</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Cancelar</a>
-                </td>
             </tr>
         }
     </tbody>
@@ -68,3 +59,9 @@
 <br />
 <br />
 <br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
