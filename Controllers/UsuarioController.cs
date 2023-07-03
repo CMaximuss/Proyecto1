@@ -37,7 +37,7 @@ namespace MVCBasico.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (usuario == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             return View(usuario);
@@ -77,13 +77,13 @@ namespace MVCBasico.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
             return View(usuario);
         }
@@ -97,7 +97,7 @@ namespace MVCBasico.Controllers
         {
             if (id != usuario.Id)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             if (ModelState.IsValid)
@@ -111,7 +111,7 @@ namespace MVCBasico.Controllers
                 {
                     if (!UsuarioExists(usuario.Id))
                     {
-                        return NotFound();
+                        return View("MensajeError");
                     }
                     else
                     {
@@ -128,14 +128,14 @@ namespace MVCBasico.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             var usuario = await _context.Usuarios
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (usuario == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             return View(usuario);
@@ -177,7 +177,7 @@ namespace MVCBasico.Controllers
             {
                 if (usuarioAux.Contrasenia == usuario.Contrasenia)
                 {
-                          
+                   
                      return RedirectToAction("ReservasPorId", "Reservas", new { id = usuarioAux.Id });
                 }
                 else
@@ -205,55 +205,6 @@ namespace MVCBasico.Controllers
             return View();
         }
 
-        /*
-        public IActionResult ReservaPoId()
-        {
-            return View();
-        }
-        */
-
-        /*  public async Task<IActionResult> MisReservas(Usuario usuario)
-          {
-              var listaUsuarios = await _context.Usuarios.ToListAsync();
-              var listaMisReservas = usuario.ReservasUsuario;
-
-              foreach (Usuario var in listaUsuarios)
-              {
-                  if(var == usuario)
-                  {
-                      listaMisReservas.Add(var.)
-                  }
-
-              }
-
-
-              return  
-          }*/
-
-        /* public async Task<IActionResult> MisReservas(Usuario usuario)
-         {
-             var listaDeReservas = await _context.Reserva.ToListAsync();
-             var misReservas = usuario.ReservasUsuario;
-
-             foreach (var item in listaDeReservas)
-             {
-                 if (item.UsuarioId == usuario.Id)
-                 {
-                     misReservas.Add(item);
-                 }
-             }
-             return View(misReservas);
-         }
-        */
-        /*
-         [HttpGet("Usuario/ListaReserva")]
-         public async Task<IActionResult> ListaReserva()
-         {
-             var listaDeReservas = await _context.Reserva.ToListAsync();
-
-             return View(listaDeReservas);
-         }
-        */
 
         public ActionResult ListaReserva(int usuarioId)
         {
@@ -263,7 +214,9 @@ namespace MVCBasico.Controllers
             // Realizar cualquier otra lógica o procesamiento necesario
 
             return View(reservas);
-        }
+         }
+
+       
 
     }
 }

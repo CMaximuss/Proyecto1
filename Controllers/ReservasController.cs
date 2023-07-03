@@ -35,7 +35,7 @@ namespace MVCBasico
 
             if (id == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             var reserva = await _context.Reserva
@@ -44,7 +44,7 @@ namespace MVCBasico
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (reserva == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             return View(reserva); 
@@ -70,11 +70,11 @@ namespace MVCBasico
             if (ModelState.IsValid)
             {
 
-                if (ConsultaReserva(reserva.ComercioId, reserva.Fecha)) 
+               if (ConsultaReserva(reserva.ComercioId, reserva.Fecha)) 
                 {
-                    return View("MensajeError");
+                   return View("MensajeError");
                     //return NotFound();
-                }
+                } 
 
                 if (EsFechaAnterior(reserva.Fecha))
                 {
@@ -83,7 +83,7 @@ namespace MVCBasico
 
                 _context.Add(reserva);
                 await _context.SaveChangesAsync();
-
+                
                 return RedirectToAction("ReservasPorId", "Reservas", new { id = id});
                 //return RedirectToAction(nameof(Index)); return anterior
             }
@@ -98,13 +98,13 @@ namespace MVCBasico
         {
             if (id == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             var reserva = await _context.Reserva.FindAsync(id);
             if (reserva == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
             ViewData["ComercioId"] = new SelectList(_context.Comercios, "Id", "Nombre", reserva.ComercioId);
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Mail", reserva.UsuarioId);
@@ -118,14 +118,26 @@ namespace MVCBasico
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Fecha,ComercioId,UsuarioId")] Reserva reserva)
         {
+
             if (id != reserva.Id)
             {
-                return NotFound();
+                return View("MensajeError");
             }
             int idUsuario = reserva.UsuarioId;
 
             if (ModelState.IsValid)
             {
+                if (ConsultaReserva(reserva.ComercioId, reserva.Fecha))
+                {
+                    return View("MensajeError");
+                    //return NotFound();
+                }
+
+                if (EsFechaAnterior(reserva.Fecha))
+                {
+                    return View("MensajeError");
+                }
+
                 try
                 {
                     _context.Update(reserva);
@@ -135,7 +147,7 @@ namespace MVCBasico
                 {
                     if (!ReservaExists(reserva.Id))
                     {
-                        return NotFound();
+                        return View("MensajeError");
                     }
                     else
                     {
@@ -155,7 +167,7 @@ namespace MVCBasico
          
             if (id == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             var reserva = await _context.Reserva
@@ -164,7 +176,7 @@ namespace MVCBasico
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (reserva == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             
@@ -198,7 +210,7 @@ namespace MVCBasico
         {
             //bool existe = false;
            // var comercioAux = await _context.Comercios.Where(c => c.Id == idComercio).FirstOrDefaultAsync();
-            var reservaAux = _context.Reserva.Where(r => r.Fecha == fechaComercio).Where(r => r.ComercioId == idComercio).FirstOrDefaultAsync();
+            var reservaAux = _context.Reserva.Where(r => r.Fecha == fechaComercio).Where(r => r.ComercioId == idComercio).FirstOrDefault();
 
             if(reservaAux != null)
             {
@@ -224,7 +236,7 @@ namespace MVCBasico
         {
             ViewBag.Id = id;
 
-            var listaReservas = _context.Reserva.Include(r => r.Comercio).Include(r => r.Usuario).Where(r => r.ComercioId == id);
+            var listaReservas = _context.Reserva.Include(r => r.Comercio).Include(r => r.Usuario).Where(r => r.ComercioId == id).OrderBy(r => r.Fecha);
 
             return View(await listaReservas.ToListAsync());
         }

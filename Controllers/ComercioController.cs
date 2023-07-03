@@ -32,14 +32,14 @@ namespace MVCBasico.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             var comercio = await _context.Comercios
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (comercio == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             return View(comercio);
@@ -62,7 +62,7 @@ namespace MVCBasico.Controllers
             {
                 if (await ComercioDuplicado(comercio.Mail))
                 {
-                    return RedirectToAction("MensajeError", "Home");
+                    return View("MensajeError");
                 }
                 else
                 {        
@@ -73,7 +73,7 @@ namespace MVCBasico.Controllers
 
                     if (await VerificarComercioFotoDuplicado(comercio.FotoComercio))
                     {
-                        return RedirectToAction("MensajeError", "Home");
+                        return View("MensajeError");
                     }
                 }
             
@@ -91,13 +91,13 @@ namespace MVCBasico.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             var comercio = await _context.Comercios.FindAsync(id);
             if (comercio == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
             return View(comercio);
         }
@@ -111,7 +111,7 @@ namespace MVCBasico.Controllers
         {
             if (id != comercio.Id)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             if (ModelState.IsValid)
@@ -125,7 +125,7 @@ namespace MVCBasico.Controllers
                 {
                     if (!ComercioExists(comercio.Id))
                     {
-                        return NotFound();
+                        return View("MensajeError");
                     }
                     else
                     {
@@ -142,14 +142,14 @@ namespace MVCBasico.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             var comercio = await _context.Comercios
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (comercio == null)
             {
-                return NotFound();
+                return View("MensajeError");
             }
 
             return View(comercio);
