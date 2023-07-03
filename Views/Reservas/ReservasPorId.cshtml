@@ -47,12 +47,18 @@
                     @Html.DisplayFor(modelItem => item.Comercio.Direccion)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Usuario.Apellido)
+                    @Html.DisplayFor(modelItem => item.Usuario.Mail)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalle</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Cancelar</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">
+                        <input type="submit" value="Editar" class="btn btn-primary" />
+                    </a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">
+                        <input type="submit" value="Detalle" class="btn btn-primary" />
+                    </a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">
+                        <input type="submit" value="Cancelar" class="btn btn-danger" />
+                    </a>
                 </td>
             </tr>
         }

@@ -70,6 +70,17 @@ namespace MVCBasico
             if (ModelState.IsValid)
             {
 
+                if (ConsultaReserva(reserva.ComercioId, reserva.Fecha)) 
+                {
+                    return View("MensajeError");
+                    //return NotFound();
+                }
+
+                if (EsFechaAnterior(reserva.Fecha))
+                {
+                    return View("MensajeError");
+                }
+
                 _context.Add(reserva);
                 await _context.SaveChangesAsync();
 
@@ -182,6 +193,23 @@ namespace MVCBasico
         }
     
 
+
+        public bool ConsultaReserva(int idComercio,DateTime fechaComercio )
+        {
+            //bool existe = false;
+           // var comercioAux = await _context.Comercios.Where(c => c.Id == idComercio).FirstOrDefaultAsync();
+            var reservaAux = _context.Reserva.Where(r => r.Fecha == fechaComercio).Where(r => r.ComercioId == idComercio).FirstOrDefaultAsync();
+
+            if(reservaAux != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
+
         //funciona
         public async Task<IActionResult> ReservasPorId(int id)
         {
@@ -202,7 +230,22 @@ namespace MVCBasico
         }
 
 
+        public IActionResult MensajeError()
+        {
+            return View();
+        }
 
+
+        public bool EsFechaAnterior(DateTime fecha)
+        {
+           DateTime fechaAux = DateTime.Now;
+            if (fecha < fechaAux )
+            {
+                return true;
+            }
+            return false;
+        }
+         
 
     }
 }
