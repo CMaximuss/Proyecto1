@@ -9,9 +9,15 @@
     <h4>Detalle</h4>
 </div>
 
+<div class="img5 row justify-content-center">
+    <img src=" @Html.DisplayFor(model => model.Comercio.FotoComercio)" style=" width: 15rem;" class="img-thumbnail" />
+</div>
+
+<br />
+
 <div class="form-details row justify-content-center">
     <hr />
-    <dl class="row">
+        <dl class="row">       
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Fecha)
         </dt>
@@ -32,11 +38,15 @@
         </dd>
     </dl>
 </div>
+
 <div class="editar row justify-content-center">
     <a asp-action="Edit" asp-route-id="@Model.Id">
         <input type="submit" value="Editar" class="btn btn-primary" />
-    </a> 
+    </a>
 </div>
+
+
+
 
 <br />
 <br />

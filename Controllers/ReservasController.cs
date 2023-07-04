@@ -24,7 +24,7 @@ namespace MVCBasico
         // GET: Reservas
         public async Task<IActionResult> Index()
         {
-            var escuelaDatabaseContext = _context.Reserva.Include(r => r.Comercio).Include(r => r.Usuario);
+            var escuelaDatabaseContext = _context.Reserva.OrderBy(r => r.Fecha).Include(r => r.Comercio).Include(r => r.Usuario);
             return View(await escuelaDatabaseContext.ToListAsync());
         }
 
@@ -227,7 +227,7 @@ namespace MVCBasico
         {
             ViewBag.Id = id;
             
-            var listaReservas = _context.Reserva.Include(r => r.Comercio).Include( r => r.Usuario).Where(r => r.UsuarioId == id);
+            var listaReservas = _context.Reserva.Include(r => r.Comercio).Include( r => r.Usuario).Where(r => r.UsuarioId == id).OrderBy(r => r.Fecha);
 
             return View(await listaReservas.ToListAsync());
         }

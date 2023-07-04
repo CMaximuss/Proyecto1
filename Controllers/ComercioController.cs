@@ -199,7 +199,7 @@ namespace MVCBasico.Controllers
         public async Task<IActionResult> ListaComercio()
         {
            
-            return View(await _context.Comercios.ToListAsync());
+            return View(await _context.Comercios.OrderBy(c => c.Nombre).ToListAsync());
         }
 
        
