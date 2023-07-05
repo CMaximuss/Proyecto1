@@ -213,24 +213,45 @@ namespace MVCBasico.Controllers
         public async Task<IActionResult> IniciarSesion([Bind("Id,Mail,Contrasenia")] Comercio comercio)
         {
             var comercioAux = await _context.Comercios.Where(u => u.Mail == comercio.Mail).FirstOrDefaultAsync();
-
+            DateTime fechaHoy = DateTime.Today;
 
             if (comercioAux == null)
             {
-                return RedirectToAction("MensajeError", "Home");
+                return RedirectToAction("MensajeError");
             }
             else
             {
                 if (comercioAux.Contrasenia == comercio.Contrasenia)
                 {
-
+                    AutoLimpieza(fechaHoy);
                     return RedirectToAction("ReservasPorComercio", "Reservas", new { id = comercioAux.Id });
                 }
                 else
                 {
-                    return RedirectToAction("MensajeError", "Home");
+                    return RedirectToAction("MensajeError");
                 }
             }
+        }
+
+        public IActionResult MensajeError()
+        {
+           return View();
+        }
+
+        public void AutoLimpieza(DateTime fecha)
+        {
+            var lista = _context.Reserva.ToList();
+
+
+            foreach (var item in lista)
+            {
+                if (item.Fecha < fecha)
+                {
+                    _context.Reserva.Remove(item);
+                    _context.SaveChanges();
+                }
+            }
+
         }
 
 

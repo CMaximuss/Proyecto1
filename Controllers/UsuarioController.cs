@@ -30,7 +30,7 @@ namespace MVCBasico.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("MensajeError", "Home");
+                return RedirectToAction("MensajeError");
             }
 
             var usuario = await _context.Usuarios
@@ -61,7 +61,7 @@ namespace MVCBasico.Controllers
             {
                 if (await UsuarioDuplicado(usuario.Mail))
                 {
-                    return RedirectToAction("MensajeError", "Home");
+                    return RedirectToAction("MensajeError");
                 }
 
                 _context.Add(usuario);
@@ -167,22 +167,22 @@ namespace MVCBasico.Controllers
         public async Task<IActionResult> IniciarSesion([Bind("Id,Mail,Contrasenia")] Usuario usuario)
         {
             var usuarioAux = await _context.Usuarios.Where(u => u.Mail == usuario.Mail).FirstOrDefaultAsync();
-           
+            DateTime fechaHoy = DateTime.Today;
 
             if (usuarioAux == null)
             {
-                return RedirectToAction("MensajeError", "Home");
+                return RedirectToAction("MensajeError");
             }
             else
             {
                 if (usuarioAux.Contrasenia == usuario.Contrasenia)
                 {
-                   
+                     AutoLimpieza(fechaHoy);
                      return RedirectToAction("ReservasPorId", "Reservas", new { id = usuarioAux.Id });
                 }
                 else
                 {
-                    return RedirectToAction("MensajeError", "Home");
+                    return RedirectToAction("MensajeError");
                 }
             }
         }
@@ -216,7 +216,27 @@ namespace MVCBasico.Controllers
             return View(reservas);
          }
 
-       
+       public IActionResult MensajeError()
+        {
+            return View();
+        }
+            
+        public void AutoLimpieza(DateTime fecha)
+        {
+            var lista = _context.Reserva.ToList();
+
+
+            foreach ( var item in lista)
+            {
+                if(item.Fecha < fecha)
+                {
+                    _context.Reserva.Remove(item);
+                    _context.SaveChanges();
+                }
+            }
+
+        }
+
 
     }
 }
