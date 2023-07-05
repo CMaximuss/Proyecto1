@@ -2,13 +2,54 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 
-
 a.navbar-brand {
+    
     white-space: normal;
     text-align: center;
     word-break: break-all;
     font-family: 'Alkatra', cursive;
 }
+
+
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    font-family: 'Alkatra', cursive;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+    nav ul li a::before {
+        display: block;
+        content: '';
+        width: 0%;
+        background: white;
+        height: 3px;
+        top: 0;
+        position: absolute;
+        transition: width 0.3s;
+    }
+
+    nav ul li a:hover::before {
+        width: 100%;
+    }
+
+nav ul li {
+    list-style: none;
+    margin-left: 35px;
+    padding: 7px 0;
+    float: left;
+    position: relative;
+}
+
+
+
 
 /* Provide sufficient contrast against white background */
 a {
@@ -21,12 +62,7 @@ a {
   border-color: #1861ac;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-    font-family: 'Alkatra', cursive;
-}
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
