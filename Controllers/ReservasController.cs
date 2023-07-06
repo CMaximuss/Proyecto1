@@ -81,6 +81,11 @@ namespace MVCBasico
                     return View("MensajeError");
                 }
 
+                if (FechaSuperaMes(reserva.Fecha))
+                {
+                    return View("MensajeError");
+                }
+
                 _context.Add(reserva);
                 await _context.SaveChangesAsync();
                 
@@ -137,6 +142,12 @@ namespace MVCBasico
                 {
                     return View("MensajeError");
                 }
+
+                if (FechaSuperaMes(reserva.Fecha))
+                {
+                    return View("MensajeError");
+                }
+
 
                 try
                 {
@@ -208,8 +219,7 @@ namespace MVCBasico
 
         public bool ConsultaReserva(int idComercio,DateTime fechaComercio )
         {
-            //bool existe = false;
-           // var comercioAux = await _context.Comercios.Where(c => c.Id == idComercio).FirstOrDefaultAsync();
+            
             var reservaAux = _context.Reserva.Where(r => r.Fecha == fechaComercio).Where(r => r.ComercioId == idComercio).FirstOrDefault();
 
             if(reservaAux != null)
@@ -246,6 +256,20 @@ namespace MVCBasico
         {
             return View();
         }
+
+        
+        public bool FechaSuperaMes(DateTime fecha)
+        {
+            DateTime fechaAux = DateTime.Today.AddDays(15);
+
+            if(fecha > fechaAux)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
 
 
         public bool EsFechaAnterior(DateTime fecha)

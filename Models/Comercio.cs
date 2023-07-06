@@ -18,6 +18,7 @@ namespace MVCBasico.Models
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
+        [Display(Name = "Correo Electronico")]
         [EmailAddress(ErrorMessage = ErrorViewModel.CorreoInvalido)]
         public string Mail { get; set; }
 

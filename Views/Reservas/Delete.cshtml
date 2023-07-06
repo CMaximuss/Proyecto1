@@ -26,13 +26,19 @@
                 @Html.DisplayNameFor(model => model.Comercio)
             </dt>
             <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Comercio.Nombre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Comercio.Direccion)
+            </dt>
+            <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Comercio.Direccion)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Usuario)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Usuario.Apellido)
+                @Html.DisplayFor(model => model.Usuario.Mail)
             </dd>
         </dl>
     </div>

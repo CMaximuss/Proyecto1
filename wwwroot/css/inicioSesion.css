@@ -1,0 +1,92 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #4e54c8; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #8f94fb, #4e54c8); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #8f94fb, #4e54c8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 700;
+}
+
+
+form {
+    background: white;
+    padding: 40px 0;
+    box-shadow: 0 0 6px 0 rgb(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+
+    form .grupo {
+        position: relative;
+        margin: 35px;
+    }
+
+
+input {
+    background: none;
+    color: rgb(94, 93, 93);
+    font-size: 18px;
+    padding: 5px 5px 5px 5px;
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+}
+
+    input:focus {
+        color: rgb(94, 93, 93);
+    }
+
+label {
+    position: absolute;
+    font-size: 16px;
+    pointer-events: none;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+}
+
+button {
+    font-family: 'Roboto', sans-serif;
+    background: #4e54c8; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #8f94fb, #4e54c8); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #8f94fb, #4e54c8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 10px;
+    border: none;
+    display: block;
+    color: white;
+    font-size: 25px;
+    margin: 10px auto;
+    width: 60%;
+    height: 40px;
+    cursor: pointer;
+}
+
+div .select {
+    position: relative;
+    display: flex;
+    width: 20em;
+    border-radius: 20em;
+}
+
+
+#milista {
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 10px;
+    background: none;
+    color: rgb(94, 93, 93);
+    font-size: 18px;
+    padding: 5px 5px 5px 5px;
+    display: block;
+    width: 100%;
+}

@@ -17,23 +17,36 @@
 
 <div class="form-details row justify-content-center">
     <hr />
-        <dl class="row">       
-        <dt class="col-sm-2">
+    <dl class="row justify-content-center">
+        <dt class="col-sm-2 row justify-content-center">
             @Html.DisplayNameFor(model => model.Fecha)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 row justify-content-center">
             @Html.DisplayFor(model => model.Fecha)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-2 row justify-content-center">
             @Html.DisplayNameFor(model => model.Comercio)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 row justify-content-center">
             @Html.DisplayFor(model => model.Comercio.Nombre)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-2 row justify-content-center">
+            @Html.DisplayNameFor(model => model.Comercio.Direccion)
+        </dt>
+        <dd class="col-sm-10 row justify-content-center">
+            @Html.DisplayFor(model => model.Comercio.Direccion)
+        </dd>
+        <dt class="col-sm-2 row justify-content-center"
+            >
+            @Html.DisplayNameFor(model => model.Comercio.Telefono)
+        </dt>
+        <dd class="col-sm-10 row justify-content-center">
+            @Html.DisplayFor(model => model.Comercio.Telefono)
+        </dd>
+        <dt class="col-sm-2 row justify-content-center">
             @Html.DisplayNameFor(model => model.Usuario)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 row justify-content-center ">
             @Html.DisplayFor(model => model.Usuario.Mail)
         </dd>
     </dl>

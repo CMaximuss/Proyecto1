@@ -30,6 +30,7 @@ namespace MVCBasico.Models
         public string Dni { get; set; }
 
         [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
+        [Display(Name ="Correo Electronico")]
         [EmailAddress(ErrorMessage = ErrorViewModel.CorreoInvalido)]
         public string Mail { get; set; }
 
