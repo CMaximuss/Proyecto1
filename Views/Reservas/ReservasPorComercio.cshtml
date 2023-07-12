@@ -21,7 +21,10 @@
                 @Html.DisplayNameFor(model => model.Comercio)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Comercio.Direccion)
+                @Html.DisplayNameFor(model => model.Usuario.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Usuario.Apellido)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Usuario)
@@ -32,20 +35,23 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fecha)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Comercio.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Comercio.Direccion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Usuario.Mail)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comercio.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Mail)
+            </td>
+        </tr>
         }
     </tbody>
 </table>
